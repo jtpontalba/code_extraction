@@ -31,14 +31,15 @@ namespace GrantApprovalProcess
     public class GrantApprovalManager
     {
         private readonly HttpClient httpClient = new HttpClient();
-        private readonly string openAiCompletionUrl = "https://api.openai.com/v1/completions";
-        private readonly string openAiApiKey = Environment.GetEnvironmentVariable("OPENAI_API_KEY");
+        private readonly string boredApiUrl = "https://www.boredapi.com/api/activity";
+        private readonly string simulatedApiKey = Environment.GetEnvironmentVariable("SIMULATED_API_KEY");
+
 
         public GrantApprovalManager()
         {
-            if (!string.IsNullOrEmpty(openAiApiKey))
+            if (!string.IsNullOrEmpty(simulatedApiKey))
             {
-                httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", openAiApiKey);
+                httpClient.DefaultRequestHeaders.Add("X-API-KEY", simulatedApiKey);
             }
         }
 
@@ -67,41 +68,18 @@ namespace GrantApprovalProcess
 
         public async Task SendDecisionAsync(GrantDecision decision)
         {
-            if (string.IsNullOrEmpty(openAiApiKey))
-            {
-                Console.WriteLine("OpenAI API key is not set.");
-                return;
-            }
-
             try
             {
-                var prompt = $"Generate a summary for a grant application decision where " +
-                             $"the application ID is {decision.ApplicationId}, " +
-                             $"the decision was '{(decision.Approved ? "approved" : "rejected")}', " +
-                             $"and the note was: {decision.DecisionNote}.";
-
-                var requestData = new
-                {
-                    model = "text-davinci-003", // Use an appropriate model
-                    prompt = prompt,
-                    temperature = 0.7,
-                    max_tokens = 60
-                };
-
-                var json = JsonSerializer.Serialize(requestData);
-                var content = new StringContent(json, System.Text.Encoding.UTF8, "application/json");
-                httpClient.DefaultRequestHeaders.Add("Content-Type", "application/json");
-
-                var response = await httpClient.PostAsync(openAiCompletionUrl, content);
+                var response = await httpClient.GetAsync(boredApiUrl);
                 response.EnsureSuccessStatusCode();
 
                 var responseJson = await response.Content.ReadAsStringAsync();
-                var completion = JsonSerializer.Deserialize<dynamic>(responseJson);
-                Console.WriteLine($"OpenAI Completion: {completion.choices[0].text}");
+                var activity = JsonSerializer.Deserialize<dynamic>(responseJson);
+                Console.WriteLine($"Simulated api response: {activity}");
             }
             catch (HttpRequestException e)
             {
-                Console.WriteLine($"Error sending decision to OpenAI: {e.Message}");
+                Console.WriteLine($"Error fetching activity from Bored API: {e.Message}");
             }
             catch (Exception e)
             {
