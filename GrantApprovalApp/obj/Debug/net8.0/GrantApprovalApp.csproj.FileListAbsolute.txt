@@ -1,0 +1,15 @@
+C:\Users\Justi\RhinoAI\code_extraction\GrantApprovalApp\obj\Debug\net8.0\GrantApprovalApp.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Justi\RhinoAI\code_extraction\GrantApprovalApp\obj\Debug\net8.0\GrantApprovalApp.AssemblyInfoInputs.cache
+C:\Users\Justi\RhinoAI\code_extraction\GrantApprovalApp\obj\Debug\net8.0\GrantApprovalApp.AssemblyInfo.cs
+C:\Users\Justi\RhinoAI\code_extraction\GrantApprovalApp\obj\Debug\net8.0\GrantApprovalApp.csproj.CoreCompileInputs.cache
+C:\Users\Justi\RhinoAI\code_extraction\GrantApprovalApp\obj\Debug\net8.0\GrantApprovalApp.sourcelink.json
+C:\Users\Justi\RhinoAI\code_extraction\GrantApprovalApp\bin\Debug\net8.0\GrantApprovalApp.exe
+C:\Users\Justi\RhinoAI\code_extraction\GrantApprovalApp\bin\Debug\net8.0\GrantApprovalApp.deps.json
+C:\Users\Justi\RhinoAI\code_extraction\GrantApprovalApp\bin\Debug\net8.0\GrantApprovalApp.runtimeconfig.json
+C:\Users\Justi\RhinoAI\code_extraction\GrantApprovalApp\bin\Debug\net8.0\GrantApprovalApp.dll
+C:\Users\Justi\RhinoAI\code_extraction\GrantApprovalApp\bin\Debug\net8.0\GrantApprovalApp.pdb
+C:\Users\Justi\RhinoAI\code_extraction\GrantApprovalApp\obj\Debug\net8.0\GrantApprovalApp.dll
+C:\Users\Justi\RhinoAI\code_extraction\GrantApprovalApp\obj\Debug\net8.0\refint\GrantApprovalApp.dll
+C:\Users\Justi\RhinoAI\code_extraction\GrantApprovalApp\obj\Debug\net8.0\GrantApprovalApp.pdb
+C:\Users\Justi\RhinoAI\code_extraction\GrantApprovalApp\obj\Debug\net8.0\GrantApprovalApp.genruntimeconfig.cache
+C:\Users\Justi\RhinoAI\code_extraction\GrantApprovalApp\obj\Debug\net8.0\ref\GrantApprovalApp.dll
