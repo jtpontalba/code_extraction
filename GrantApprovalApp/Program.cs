@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace GrantApprovalProcess
 {
+    // schema
     public class GrantApplication
     {
         public int ApplicationId { get; set; }
@@ -14,6 +15,7 @@ namespace GrantApprovalProcess
         public bool IsNonProfit { get; set; }
     }
 
+    // schema
     public class GrantDecision
     {
         public int ApplicationId { get; set; }
@@ -28,6 +30,7 @@ namespace GrantApprovalProcess
         }
     }
 
+    // schema
     public class GrantApprovalManager
     {
         private readonly HttpClient httpClient = new HttpClient();
@@ -43,10 +46,13 @@ namespace GrantApprovalProcess
             }
         }
 
+        // Business logic
         public GrantDecision EvaluateApplication(GrantApplication application)
         {
+            // Choice node, with inputs application, with a rule
             if (application.RequestedAmount <= 0)
             {
+                // Exception Node
                 throw new InvalidGrantApplicationException("Requested amount must be greater than 0.");
             }
 
