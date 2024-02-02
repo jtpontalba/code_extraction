@@ -6,7 +6,25 @@ using System.Threading.Tasks;
 
 namespace GrantApprovalProcess
 {
-    // schema
+    public enum UserRole
+    {
+        Administrator,
+        Reviewer,
+        Applicant
+    }
+
+    public class User
+    {
+        public string Name { get; set; }
+        public UserRole Role { get; set; }
+
+        public User(string name, UserRole role)
+        {
+            Name = name;
+            Role = role;
+        }
+    }
+
     public class GrantApplication
     {
         public int ApplicationId { get; set; }
@@ -15,7 +33,6 @@ namespace GrantApprovalProcess
         public bool IsNonProfit { get; set; }
     }
 
-    // schema
     public class GrantDecision
     {
         public int ApplicationId { get; set; }
@@ -30,30 +47,27 @@ namespace GrantApprovalProcess
         }
     }
 
-    // schema
     public class GrantApprovalManager
     {
         private readonly HttpClient httpClient = new HttpClient();
         private readonly string boredApiUrl = "https://www.boredapi.com/api/activity";
-        private readonly string simulatedApiKey = Environment.GetEnvironmentVariable("SIMULATED_API_KEY");
+        private User currentUser;
 
-
-        public GrantApprovalManager()
+        public GrantApprovalManager(User user)
         {
+            currentUser = user;
+            var simulatedApiKey = Environment.GetEnvironmentVariable("SIMULATED_API_KEY");
             if (!string.IsNullOrEmpty(simulatedApiKey))
             {
                 httpClient.DefaultRequestHeaders.Add("X-API-KEY", simulatedApiKey);
             }
         }
 
-        // Business logic
         public GrantDecision EvaluateApplication(GrantApplication application)
         {
-            // Choice node, with inputs application, with a rule
-            if (application.RequestedAmount <= 0)
+            if (currentUser.Role != UserRole.Administrator && currentUser.Role != UserRole.Reviewer)
             {
-                // Exception Node
-                throw new InvalidGrantApplicationException("Requested amount must be greater than 0.");
+                throw new InvalidOperationException("Insufficient permissions to evaluate applications.");
             }
 
             var decision = new GrantDecision { ApplicationId = application.ApplicationId };
@@ -72,7 +86,7 @@ namespace GrantApprovalProcess
             return decision;
         }
 
-        public async Task SendDecisionAsync(GrantDecision decision)
+        public async Task FetchBoredActivityAsync()
         {
             try
             {
@@ -81,7 +95,7 @@ namespace GrantApprovalProcess
 
                 var responseJson = await response.Content.ReadAsStringAsync();
                 var activity = JsonSerializer.Deserialize<dynamic>(responseJson);
-                Console.WriteLine($"Simulated api response: {activity}");
+                Console.WriteLine($"Suggested Activity: {activity}");
             }
             catch (HttpRequestException e)
             {
@@ -98,27 +112,37 @@ namespace GrantApprovalProcess
     {
         static async Task Main(string[] args)
         {
-            GrantApprovalManager manager = new GrantApprovalManager();
+            // Example of user roles
+            var adminUser = new User("Admin", UserRole.Administrator);
 
+            // Initialize manager with an administrator user
+            GrantApprovalManager manager = new GrantApprovalManager(adminUser);
+
+            // Create a grant application
+            var application = new GrantApplication
+            {
+                ApplicationId = 1,
+                ApplicantName = "NonProfit Org",
+                RequestedAmount = 9500,
+                IsNonProfit = true
+            };
+
+            // Evaluate the application
             try
             {
-                var application = new GrantApplication
-                {
-                    ApplicationId = 1,
-                    ApplicantName = "NonProfit Org",
-                    RequestedAmount = 9500,
-                    IsNonProfit = true
-                };
-
                 var decision = manager.EvaluateApplication(application);
                 Console.WriteLine($"Decision for Application {decision.ApplicationId}: {decision.DecisionNote}");
 
-                // Simulating sending decision
-                await manager.SendDecisionAsync(decision);
+                // Fetch a suggested activity
+                await manager.FetchBoredActivityAsync();
             }
             catch (InvalidGrantApplicationException e)
             {
                 Console.WriteLine($"Application error: {e.Message}");
+            }
+            catch (InvalidOperationException e)
+            {
+                Console.WriteLine(e.Message); // For insufficient permissions
             }
             catch (Exception e)
             {
