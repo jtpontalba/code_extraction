@@ -1,0 +1,421 @@
+{
+  "appName": "",
+  "confidence": 1,
+  "created": "Fri, 09 Feb 2024 15:49:34 GMT",
+  "createdBy": "justin.pontalba",
+  "description": null,
+  "expressions": [
+    {
+      "confidence": 1,
+      "description": null,
+      "id": "07aba602-4b81-4dfe-bb05-2a843aaea016",
+      "inputs": [],
+      "lineLevelConfidence": [],
+      "name": null,
+      "operation": null,
+      "type": "formula",
+      "value": "# \n#  thrownewInvalidOperationException(\"Insufficient permissions to evaluate applications.\");# } "
+    },
+    {
+      "confidence": 1,
+      "description": null,
+      "id": "6b354f78-b27f-4e3a-ae28-16288f6e97d6",
+      "inputs": [],
+      "lineLevelConfidence": [],
+      "name": null,
+      "operation": null,
+      "type": "formula",
+      "value": "# # decision = new GrantDecision{ApplicationId=application.ApplicationId}"
+    },
+    {
+      "confidence": 1,
+      "description": null,
+      "id": "1138e926-95d0-4dfc-8bf9-024656fa4e37",
+      "inputs": [],
+      "lineLevelConfidence": [],
+      "name": null,
+      "operation": null,
+      "type": "formula",
+      "value": "# # return decision"
+    },
+    {
+      "confidence": 1,
+      "description": null,
+      "id": "9d034b79-da49-4f9f-a299-180e0665dbb0",
+      "inputs": [],
+      "lineLevelConfidence": [],
+      "name": null,
+      "operation": null,
+      "type": "formula",
+      "value": "# # try{varresponse=awaithttpClient.GetAsync(boredApiUrl);response.EnsureSuccessStatusCode();varresponseJson=awaitresponse.Content.ReadAsStringAsync();varactivity=JsonSerializer.Deserialize<dynamic>(responseJson);Console.WriteLine($\"Suggested Activity: activity\");}catch(HttpRequestExceptione){Console.WriteLine($\"Error fetching activity from Bored API: e.Message\");}catch(Exceptione){Console.WriteLine($\"Unexpected error: e.Message\");}"
+    },
+    {
+      "confidence": 1,
+      "description": null,
+      "id": "a28adc50-eaa7-4864-9c78-d6253b1c8b23",
+      "inputs": [],
+      "lineLevelConfidence": [],
+      "name": null,
+      "operation": null,
+      "type": "formula",
+      "value": "# # adminUser = new User(\"Admin\",UserRole.Administrator)"
+    },
+    {
+      "confidence": 1,
+      "description": null,
+      "id": "883c1228-4d70-4fa7-93c4-e328287b6322",
+      "inputs": [],
+      "lineLevelConfidence": [],
+      "name": null,
+      "operation": null,
+      "type": "formula",
+      "value": "# # manager = new GrantApprovalManager(adminUser)"
+    },
+    {
+      "confidence": 1,
+      "description": null,
+      "id": "f1ae7674-7036-46f0-922d-3deab9cd0fa1",
+      "inputs": [],
+      "lineLevelConfidence": [],
+      "name": null,
+      "operation": null,
+      "type": "formula",
+      "value": "# # application = new GrantApplication{ApplicationId=1,ApplicantName=\"NonProfit Org\",RequestedAmount=9500,IsNonProfit=true}"
+    },
+    {
+      "confidence": 1,
+      "description": null,
+      "id": "2131eb28-0abe-45ea-93c0-f263189e9c69",
+      "inputs": [],
+      "lineLevelConfidence": [],
+      "name": null,
+      "operation": null,
+      "type": "formula",
+      "value": "# # try{vardecision=manager.EvaluateApplication(application);Console.WriteLine($\"Decision for Application decision.ApplicationId: decision.DecisionNote\");awaitmanager.FetchBoredActivityAsync();}catch(InvalidGrantApplicationExceptione){Console.WriteLine($\"Application error: e.Message\");}catch(InvalidOperationExceptione){Console.WriteLine(e.Message);}catch(Exceptione){Console.WriteLine($\"An unexpected error occurred: e.Message\");}"
+    },
+    {
+      "confidence": 1,
+      "description": null,
+      "id": "f5ed570b-ed3d-47a7-8de6-55a25c1c4cfa",
+      "inputs": [],
+      "lineLevelConfidence": [],
+      "name": null,
+      "operation": null,
+      "type": "formula",
+      "value": "# # decision.Approved=true;\n # decision.DecisionNote=\"Approved for funding\";"
+    },
+    {
+      "confidence": 1,
+      "description": null,
+      "id": "ddc1c464-44d3-4064-87d3-a67059c185ad",
+      "inputs": [],
+      "lineLevelConfidence": [],
+      "name": null,
+      "operation": null,
+      "type": "formula",
+      "value": "# # decision.Approved=false;\n # decision.DecisionNote=\"Rejected: Criteria not met\";"
+    },
+    {
+      "confidence": 1,
+      "description": null,
+      "id": "1867c708-9a61-4c62-b780-90b911b78cfc",
+      "inputs": [],
+      "lineLevelConfidence": [],
+      "name": null,
+      "operation": null,
+      "type": "formula",
+      "value": "# application.RequestedAmount<=10000&&application.IsNonProfit"
+    }
+  ],
+  "externalConnections": [],
+  "id": "843ac66b-62d8-4875-ad6d-8cd60dadeacd",
+  "privileges": [],
+  "roles": [],
+  "schemas": [],
+  "type": "new",
+  "updated": "Fri, 09 Feb 2024 15:50:43 GMT",
+  "updatedBy": "justin.pontalba",
+  "workflows": [
+    {
+      "confidence": 1,
+      "description": null,
+      "id": "6291e50b-8dbf-401b-b5fd-376345d47e5d",
+      "name": "Program",
+      "nodes": [
+        {
+          "confidence": 1,
+          "description": null,
+          "expressionId": null,
+          "expressions": [],
+          "id": "7b51a2e9-e4a8-4695-879f-bfdbf2862c3d",
+          "inputFields": [],
+          "inputs": [],
+          "name": "Constructor",
+          "properties": {},
+          "references": [],
+          "subflowReferenceId": null,
+          "type": "end"
+        }
+      ],
+      "type": "flow"
+    },
+    {
+      "confidence": 1,
+      "description": null,
+      "id": "3310a010-43bf-46ff-93b5-2d8e5522256f",
+      "name": "EvaluateApplication",
+      "nodes": [
+        {
+          "confidence": 0,
+          "description": null,
+          "expressionId": "07aba602-4b81-4dfe-bb05-2a843aaea016",
+          "expressions": [],
+          "id": "20925039-5c24-41bd-80b3-c57981c61b71",
+          "inputFields": [],
+          "inputs": [],
+          "name": "if (currentUser.Role!=UserRole.Administrator&&currentUser.Role!=UserRole.Reviewer) {thrownewInvalidOperationException(\"Insufficient permissions to evaluate applications.\");\n}",
+          "properties": {},
+          "references": [
+            "4f493c2e-65c0-4375-ba72-42e1c42c1553"
+          ],
+          "subflowReferenceId": null,
+          "type": "unknown"
+        },
+        {
+          "confidence": 0,
+          "description": null,
+          "expressionId": "6b354f78-b27f-4e3a-ae28-16288f6e97d6",
+          "expressions": [],
+          "id": "4f493c2e-65c0-4375-ba72-42e1c42c1553",
+          "inputFields": [],
+          "inputs": [],
+          "name": "decision = new GrantDecision{ApplicationId=application.ApplicationId}",
+          "properties": {},
+          "references": [
+            "64aebd97-674d-4b1b-8551-788aed590250"
+          ],
+          "subflowReferenceId": null,
+          "type": "unknown"
+        },
+        {
+          "confidence": 0,
+          "description": null,
+          "expressionId": "1138e926-95d0-4dfc-8bf9-024656fa4e37",
+          "expressions": [],
+          "id": "a5de6c47-25a6-4349-94ed-1d12251b45e9",
+          "inputFields": [],
+          "inputs": [],
+          "name": "return decision",
+          "properties": {},
+          "references": [
+            "d572abc0-456d-4b27-ba45-486898dfad72"
+          ],
+          "subflowReferenceId": null,
+          "type": "unknown"
+        },
+        {
+          "confidence": 0,
+          "description": null,
+          "expressionId": "f5ed570b-ed3d-47a7-8de6-55a25c1c4cfa",
+          "expressions": [],
+          "id": "7352e274-8c04-4ae5-8670-8c21193b5191",
+          "inputFields": [],
+          "inputs": [],
+          "name": "Transform",
+          "properties": {},
+          "references": [
+            "a5de6c47-25a6-4349-94ed-1d12251b45e9"
+          ],
+          "subflowReferenceId": null,
+          "type": "transform"
+        },
+        {
+          "confidence": 0,
+          "description": null,
+          "expressionId": "ddc1c464-44d3-4064-87d3-a67059c185ad",
+          "expressions": [],
+          "id": "72903032-25a6-47af-8e29-336978a02b90",
+          "inputFields": [],
+          "inputs": [],
+          "name": "Transform2",
+          "properties": {},
+          "references": [
+            "a5de6c47-25a6-4349-94ed-1d12251b45e9"
+          ],
+          "subflowReferenceId": null,
+          "type": "transform"
+        },
+        {
+          "confidence": 1,
+          "description": null,
+          "expressionId": null,
+          "expressions": [],
+          "id": "d572abc0-456d-4b27-ba45-486898dfad72",
+          "inputFields": [],
+          "inputs": [],
+          "name": "End",
+          "properties": {},
+          "references": [],
+          "subflowReferenceId": null,
+          "type": "end"
+        },
+        {
+          "confidence": 1,
+          "description": null,
+          "expressionId": null,
+          "expressions": [],
+          "id": "64aebd97-674d-4b1b-8551-788aed590250",
+          "inputFields": [],
+          "inputs": [],
+          "name": "if",
+          "properties": {
+            "expressionMap": [
+              {
+                "expressionId": "1867c708-9a61-4c62-b780-90b911b78cfc",
+                "referenceId": "7352e274-8c04-4ae5-8670-8c21193b5191"
+              },
+              {
+                "expressionId": null,
+                "referenceId": "72903032-25a6-47af-8e29-336978a02b90"
+              }
+            ]
+          },
+          "references": [
+            "72903032-25a6-47af-8e29-336978a02b90",
+            "7352e274-8c04-4ae5-8670-8c21193b5191"
+          ],
+          "ruleActions": [],
+          "subflowReferenceId": null,
+          "type": "choice"
+        }
+      ],
+      "type": "subflow"
+    },
+    {
+      "confidence": 1,
+      "description": null,
+      "id": "ca9ee1ac-0498-4052-8ba6-d2f0bdaf1504",
+      "name": "FetchBoredActivityAsync",
+      "nodes": [
+        {
+          "confidence": 0,
+          "description": null,
+          "expressionId": "9d034b79-da49-4f9f-a299-180e0665dbb0",
+          "expressions": [],
+          "id": "a7a981d2-2b02-4ed6-beac-229d59190bd7",
+          "inputFields": [],
+          "inputs": [],
+          "name": "try",
+          "properties": {},
+          "references": [
+            "c63ff4b1-fba8-4779-a0d3-30601da9bfee"
+          ],
+          "subflowReferenceId": null,
+          "type": "unknown"
+        },
+        {
+          "confidence": 1,
+          "description": null,
+          "expressionId": null,
+          "expressions": [],
+          "id": "c63ff4b1-fba8-4779-a0d3-30601da9bfee",
+          "inputFields": [],
+          "inputs": [],
+          "name": "End",
+          "properties": {},
+          "references": [],
+          "subflowReferenceId": null,
+          "type": "end"
+        }
+      ],
+      "type": "subflow"
+    },
+    {
+      "confidence": 1,
+      "description": null,
+      "id": "8e559aee-c90b-44bd-b344-20e754029ef1",
+      "name": "Main",
+      "nodes": [
+        {
+          "confidence": 0,
+          "description": null,
+          "expressionId": "a28adc50-eaa7-4864-9c78-d6253b1c8b23",
+          "expressions": [],
+          "id": "3695e9fb-1ce9-420f-a052-49843487d82e",
+          "inputFields": [],
+          "inputs": [],
+          "name": "adminUser = new User(\"Admin\",UserRole.Administrator)",
+          "properties": {},
+          "references": [
+            "cb0a5562-5ec8-4931-8aea-1c54d44d4b92"
+          ],
+          "subflowReferenceId": null,
+          "type": "unknown"
+        },
+        {
+          "confidence": 0,
+          "description": null,
+          "expressionId": "883c1228-4d70-4fa7-93c4-e328287b6322",
+          "expressions": [],
+          "id": "cb0a5562-5ec8-4931-8aea-1c54d44d4b92",
+          "inputFields": [],
+          "inputs": [],
+          "name": "manager = new GrantApprovalManager(adminUser)",
+          "properties": {},
+          "references": [
+            "aa4f4fa5-ad56-45af-b704-8738b5fc5333"
+          ],
+          "subflowReferenceId": null,
+          "type": "unknown"
+        },
+        {
+          "confidence": 0,
+          "description": null,
+          "expressionId": "f1ae7674-7036-46f0-922d-3deab9cd0fa1",
+          "expressions": [],
+          "id": "aa4f4fa5-ad56-45af-b704-8738b5fc5333",
+          "inputFields": [],
+          "inputs": [],
+          "name": "application = new GrantApplication{ApplicationId=1,ApplicantName=\"NonProfit Org\",RequestedAmount=9500,IsNonProfit=true}",
+          "properties": {},
+          "references": [
+            "34552a41-e6d8-4ff9-83a1-778f45966e6c"
+          ],
+          "subflowReferenceId": null,
+          "type": "unknown"
+        },
+        {
+          "confidence": 0,
+          "description": null,
+          "expressionId": "2131eb28-0abe-45ea-93c0-f263189e9c69",
+          "expressions": [],
+          "id": "34552a41-e6d8-4ff9-83a1-778f45966e6c",
+          "inputFields": [],
+          "inputs": [],
+          "name": "try",
+          "properties": {},
+          "references": [
+            "39af543d-ec01-41b9-88d3-9f07bf8f26cc"
+          ],
+          "subflowReferenceId": null,
+          "type": "unknown"
+        },
+        {
+          "confidence": 1,
+          "description": null,
+          "expressionId": null,
+          "expressions": [],
+          "id": "39af543d-ec01-41b9-88d3-9f07bf8f26cc",
+          "inputFields": [],
+          "inputs": [],
+          "name": "End",
+          "properties": {},
+          "references": [],
+          "subflowReferenceId": null,
+          "type": "end"
+        }
+      ],
+      "type": "flow"
+    }
+  ]
+}
