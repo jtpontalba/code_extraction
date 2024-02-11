@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace GrantApprovalProcess
 {
+    // Role definition
     public enum UserRole
     {
         Administrator,
@@ -13,6 +14,7 @@ namespace GrantApprovalProcess
         Applicant
     }
 
+    // Domain Object definition
     public class User
     {
         public string Name { get; set; }
@@ -25,6 +27,7 @@ namespace GrantApprovalProcess
         }
     }
 
+    // Domain Object definition
     public class GrantApplication
     {
         public int ApplicationId { get; set; }
@@ -33,6 +36,7 @@ namespace GrantApprovalProcess
         public bool IsNonProfit { get; set; }
     }
 
+    // Domain Object definition
     public class GrantDecision
     {
         public int ApplicationId { get; set; }
@@ -47,6 +51,7 @@ namespace GrantApprovalProcess
         }
     }
 
+    // Actual Role
     public class GrantApprovalManager
     {
         private readonly HttpClient httpClient = new HttpClient();
@@ -62,21 +67,25 @@ namespace GrantApprovalProcess
                 httpClient.DefaultRequestHeaders.Add("X-API-KEY", simulatedApiKey);
             }
         }
-
+        // Business logic #1 
         public GrantDecision EvaluateApplication(GrantApplication application)
         {
+            // Choice Node with Rule Evaluation
             if (currentUser.Role != UserRole.Administrator && currentUser.Role != UserRole.Reviewer)
             {
+                // Exception Node
                 throw new InvalidOperationException("Insufficient permissions to evaluate applications.");
             }
 
             var decision = new GrantDecision { ApplicationId = application.ApplicationId };
 
+            // Choice Node with rule evaluation with domain inputs Application
             if (application.RequestedAmount <= 10000 && application.IsNonProfit)
             {
                 decision.Approved = true;
                 decision.DecisionNote = "Approved for funding";
             }
+            // default path 
             else
             {
                 decision.Approved = false;
@@ -86,13 +95,17 @@ namespace GrantApprovalProcess
             return decision;
         }
 
+        // Business Logic #2 another workflow or subflow?
         public async Task FetchBoredActivityAsync()
         {
+            // start node
             try
             {
+                // node
                 var response = await httpClient.GetAsync(boredApiUrl);
-                response.EnsureSuccessStatusCode();
 
+                // Step Nodes/Expressions
+                response.EnsureSuccessStatusCode();
                 var responseJson = await response.Content.ReadAsStringAsync();
                 var activity = JsonSerializer.Deserialize<dynamic>(responseJson);
                 Console.WriteLine($"Suggested Activity: {activity}");
@@ -107,7 +120,7 @@ namespace GrantApprovalProcess
             }
         }
     }
-
+    // Main Logic
     class Program
     {
         static async Task Main(string[] args)
