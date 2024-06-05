@@ -1,0 +1,6 @@
+myenv
+.DS_Store
+java_files
+vb_files
+
+*.txt
